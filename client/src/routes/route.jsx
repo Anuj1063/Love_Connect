@@ -14,7 +14,7 @@ import NotFound from '../pages/NotFound';
 import AddProfileDetails from '../pages/AddprofileDetais';
 import UpdateProfile from '../pages/UpdateProfile';
 import Message from '../pages/Message';
-import Chat from '../pages/chat';
+import Chat from '../pages/Chat';
 import Userdetails from '../pages/Userdetails';
 import Admindashboard from '../pages/AdminPages/Admindashboard';
 import Layoutadmin from './Layoutadmin';
