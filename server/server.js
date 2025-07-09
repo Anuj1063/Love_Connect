@@ -27,7 +27,21 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Middlewares
 app.use(corsMiddleware);
 app.use(morgan('dev'));
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://js.stripe.com"],
+        connectSrc: ["'self'", "http://localhost:4000", "https://your-api-domain.com"],
+        imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        frameSrc: ["'self'", "https://js.stripe.com"], // for Stripe
+      },
+    },
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
