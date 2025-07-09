@@ -33,8 +33,8 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "https://js.stripe.com"],
-        connectSrc: ["'self'", "http://localhost:4000", "https://your-api-domain.com"],
-        imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
+        connectSrc: ["'self'", "http://localhost:4000", "https://love-connect-1.onrender.com"],
+        imgSrc: ["'self'", "data:", "https://images.unsplash.com","https://plus.unsplash.com"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         frameSrc: ["'self'", "https://js.stripe.com"], // for Stripe
