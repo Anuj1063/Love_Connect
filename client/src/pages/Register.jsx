@@ -562,6 +562,7 @@
 import { useState, useEffect } from "react";
 import { Heart, Eye, EyeOff, User, Mail, Lock, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import BaseUrl from "../utils/basUrl";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -655,7 +656,7 @@ const Register = () => {
     setLoading(true);
     setErrors({});
     try {
-      const response = await fetch("http://127.0.0.1:4000/auth/signup", {
+      const response = await fetch(`${BaseUrl}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

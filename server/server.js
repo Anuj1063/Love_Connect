@@ -10,7 +10,11 @@ const cors = require('cors');
 const { app, server, initSocketIO } = require('./app/utils/socket.util');
 const connectDB = require('./app/config/db');
 
+
 // CORS Middleware
+if(process.env.NODE_ENV!=='production'){
+
+}
 const corsMiddleware = cors({
   origin: process.env.CLIENT_URL || "http://localhost:5173" ,
   credentials: true,
@@ -42,6 +46,15 @@ app.use('/api/message', require('./app/routes/api/message.route'));
 app.use("/api/admin", require('./app/routes/api/admin.route'))
 app.use("/api/payment", require('./app/routes/api/payment.route'));
 app.use("/api", require("./app/routes/api/comments.route"))
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, '../client/dist')))
+  
+  app.get("/*path", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client", "dist", "index.html"))
+  })
+}
+
 
 // DB Connection
 connectDB.dbConnection();
