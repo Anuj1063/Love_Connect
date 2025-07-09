@@ -48,12 +48,17 @@ app.use("/api/payment", require('./app/routes/api/payment.route'));
 app.use("/api", require("./app/routes/api/comments.route"))
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, '../client/dist')))
-  
-  app.get("/*path", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client", "dist", "index.html"))
-  })
+  const clientBuildPath = path.join(__dirname, "../client/dist");
+
+  app.use(express.static(clientBuildPath));
+
+  // Catch-all route for React Router
+ app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(clientBuildPath, "index.html"));
+});
+
 }
+
 
 
 // DB Connection
