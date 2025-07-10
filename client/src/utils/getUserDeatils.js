@@ -1,10 +1,13 @@
+
+import BaseUrl from "./basUrl";
+
 const getUserId = async () => {
   const token = localStorage.getItem('token'); // <-- get token from localStorage
 
   if (!token) return null;
 
   try {
-    const response = await fetch('http://127.0.0.1:4000/api/profile', {
+    const response = await fetch(`${BaseUrl}api/profile`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -473,3 +473,295 @@ const Register = () => {
 };
 
 export default Register;
+
+
+
+
+
+
+// "use client";
+
+// import { useState, useEffect } from "react";
+// import { Heart, Eye, EyeOff, User, Mail, Lock, Sparkles } from "lucide-react";
+// import { useNavigate } from "react-router-dom";
+// import BaseUrl from "../utils/basUrl";
+
+// const testimonials = [
+//   {
+//     id: 1,
+//     text: "Amazing app! Met my partner here 6 months ago...",
+//     name: "Michael R.",
+//     initial: "M",
+//     rating: 5,
+//     gradient: "from-purple-400 to-pink-400",
+//   },
+//   {
+//     id: 2,
+//     text: "Found my soulmate within a week!",
+//     name: "Sarah M.",
+//     initial: "S",
+//     rating: 5,
+//     gradient: "from-pink-400 to-rose-400",
+//   },
+//   {
+//     id: 3,
+//     text: "Best dating app I've ever used.",
+//     name: "David L.",
+//     initial: "D",
+//     rating: 5,
+//     gradient: "from-rose-400 to-purple-400",
+//   },
+//   {
+//     id: 4,
+//     text: "Met so many wonderful people here.",
+//     name: "Emma K.",
+//     initial: "E",
+//     rating: 5,
+//     gradient: "from-purple-500 to-pink-500",
+//   },
+//   {
+//     id: 5,
+//     text: "Safe, secure, and effective.",
+//     name: "Alex T.",
+//     initial: "A",
+//     rating: 5,
+//     gradient: "from-pink-500 to-rose-500",
+//   },
+// ];
+
+// const Register = () => {
+//   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [loading, setLoading] = useState(false);
+//   const [errors, setErrors] = useState({});
+//   const [showSuccess, setShowSuccess] = useState(false);
+//   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+//     }, 4000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+//   };
+
+//   const validateForm = () => {
+//     const newErrors = {};
+//     if (!formData.name.trim()) newErrors.name = "Name is required";
+//     else if (formData.name.length < 2) newErrors.name = "Name must be at least 2 characters";
+//     if (!formData.email.trim()) newErrors.email = "Email is required";
+//     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email";
+//     if (!formData.password) newErrors.password = "Password is required";
+//     else if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0;
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (!validateForm()) return;
+//     setLoading(true);
+//     setErrors({});
+//     try {
+//       const response = await fetch(`${BaseUrl}auth/signup`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(formData),
+//       });
+//       const data = await response.json();
+//       if (response.ok) {
+//         setShowSuccess(true);
+//         setTimeout(() => {
+//           setShowSuccess(false);
+//           navigate("/verifyuser", {
+//             state: { email: formData.email.trim(), fromRegistration: true },
+//           });
+//           setFormData({ name: "", email: "", password: "" });
+//         }, 2000);
+//       } else {
+//         if (data.message) setErrors({ submit: data.message });
+//         else if (data.errors) {
+//           const serverErrors = {};
+//           data.errors.forEach((error) => {
+//             if (error.field) serverErrors[error.field] = error.message;
+//           });
+//           setErrors(serverErrors);
+//         } else setErrors({ submit: "Registration failed. Please try again." });
+//       }
+//     } catch (error) {
+//       setErrors({ submit: "Network error. Please try again." });
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const navigateToLogin = () => navigate("/login");
+
+//   return (
+//     <div className="min-h-screen flex flex-col lg:flex-row relative">
+//       {/* Background */}
+//       <div className="absolute inset-0 -z-10">
+//         <img
+//           src="https://images.unsplash.com/photo-1567309837661-5e9e8fd6a6de?w=600&auto=format&fit=crop&q=60"
+//           alt="Background"
+//           className="w-full h-full object-cover"
+//         />
+//         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-black/20"></div>
+//       </div>
+
+//       {/* Success Toast */}
+//       {showSuccess && (
+//         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-green-500 text-white px-6 py-3 rounded-full shadow-lg animate-bounce">
+//           ✨ Account created successfully!
+//         </div>
+//       )}
+
+//       {/* Left Content */}
+//       <div className="w-full lg:w-3/5 flex flex-col justify-center px-6 sm:px-10 py-12">
+//         <div className="max-w-xl mx-auto text-center lg:text-left">
+//           <div className="flex items-center gap-3 mb-6">
+//             <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center">
+//               <Heart className="text-white w-6 h-6 sm:w-8 sm:h-8" />
+//             </div>
+//             <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">
+//               LoveConnect
+//             </h1>
+//           </div>
+
+//           <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
+//             Begin Your
+//             <span className="block bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+//               Journey to Love
+//             </span>
+//           </h2>
+//           <p className="text-white/90 mt-4 mb-6 text-lg">
+//             Connect with amazing people and build meaningful relationships.
+//           </p>
+
+//           <div className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8">
+//             {["Smart Matching", "Real Connections", "Privacy First"].map((item, idx) => (
+//               <div key={idx} className="flex items-center space-x-2 text-white/80">
+//                 <div className={`w-2 h-2 ${["bg-purple-400", "bg-pink-400", "bg-rose-400"][idx]} rounded-full`} />
+//                 <span className="text-sm">{item}</span>
+//               </div>
+//             ))}
+//           </div>
+
+//           {/* Testimonial Carousel */}
+//           <div className="bg-white/10 p-4 sm:p-6 rounded-xl border border-white/20">
+//             <div className="overflow-hidden">
+//               <div
+//                 className="flex transition-transform duration-500"
+//                 style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+//               >
+//                 {testimonials.map(({ id, text, name, initial, rating, gradient }) => (
+//                   <div key={id} className="w-full flex-shrink-0">
+//                     <p className="text-white italic mb-2">"{text}"</p>
+//                     <div className="flex items-center space-x-3">
+//                       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${gradient}`}>
+//                         <span className="text-white font-bold text-sm">{initial}</span>
+//                       </div>
+//                       <div>
+//                         <p className="text-white text-sm font-semibold">{name}</p>
+//                         <div className="flex space-x-1">
+//                           {[...Array(rating)].map((_, i) => (
+//                             <Heart key={i} className="w-3 h-3 text-purple-400 fill-current" />
+//                           ))}
+//                         </div>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//             <div className="flex justify-center space-x-2 mt-3">
+//               {testimonials.map((_, i) => (
+//                 <button
+//                   key={i}
+//                   className={`w-2 h-2 rounded-full ${i === currentTestimonial ? "bg-purple-400 w-6" : "bg-white/30"}`}
+//                   onClick={() => setCurrentTestimonial(i)}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Right Form */}
+//       <div className="w-full lg:w-2/5 bg-black/20 backdrop-blur-md p-6 sm:p-10 flex justify-center items-center">
+//         <div className="w-full max-w-md">
+//           <h3 className="text-3xl font-bold text-white text-center mb-6">Create Account</h3>
+//           <form onSubmit={handleSubmit} className="space-y-5">
+//             {["name", "email", "password"].map((field) => (
+//               <div key={field}>
+//                 <label className="block text-white/80 text-sm mb-1 capitalize">
+//                   {field === "name" ? "Full Name" : field}
+//                 </label>
+//                 <div className="relative">
+//                   {field === "name" && <User className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" />}
+//                   {field === "email" && <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" />}
+//                   {field === "password" && <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-white/60" />}
+//                   <input
+//                     type={field === "password" && !showPassword ? "password" : "text"}
+//                     name={field}
+//                     value={formData[field]}
+//                     onChange={handleChange}
+//                     className={`w-full pl-10 pr-10 py-3 rounded-xl bg-white/10 text-white placeholder-white/50 border ${
+//                       errors[field] ? "border-red-400" : "border-white/30"
+//                     } focus:ring-pink-400 focus:outline-none`}
+//                     placeholder={`Enter your ${field}`}
+//                     disabled={loading}
+//                   />
+//                   {field === "password" && (
+//                     <button
+//                       type="button"
+//                       onClick={() => setShowPassword(!showPassword)}
+//                       className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60"
+//                     >
+//                       {showPassword ? <EyeOff /> : <Eye />}
+//                     </button>
+//                   )}
+//                 </div>
+//                 {errors[field] && <p className="text-red-300 text-sm mt-1">{errors[field]}</p>}
+//               </div>
+//             ))}
+
+//             {errors.submit && <p className="text-red-300 text-sm">{errors.submit}</p>}
+
+//             <button
+//               type="submit"
+//               disabled={loading}
+//               className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold shadow-lg hover:brightness-110 transition"
+//             >
+//               {loading ? "Creating Account..." : "Start My Journey"}
+//             </button>
+//           </form>
+
+//           <p className="text-center text-white/70 mt-6 text-sm">
+//             Already have an account?{' '}
+//             <button
+//               className="text-pink-300 hover:underline"
+//               onClick={navigateToLogin}
+//             >
+//               Sign In
+//             </button>
+//           </p>
+
+//           <p className="text-center text-white/50 text-xs mt-4">
+//             By creating an account, you agree to our{' '}
+//             <a href="/terms" className="text-pink-300 hover:underline">Terms</a> and{' '}
+//             <a href="/privacy" className="text-pink-300 hover:underline">Privacy Policy</a>
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Register;

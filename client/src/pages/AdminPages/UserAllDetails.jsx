@@ -1,117 +1,4 @@
 
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import axios from 'axios';
-// import BaseUrl from '../../utils/basUrl';
-
-
-
-// function UserAllDetails() {
-//   const { userId } = useParams();
-//   const [userData, setUserData] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     if (!userId) return;
-    
-//     const fetchUserDetails = async () => {
-//       try {
-//         const res = await axios.get(
-         
-
-//           `${BaseUrl}api/admin/userdetails/${userId}`, {
-//     withCredentials: true,
-//   }
-//         );
-//         console.log("✅ API Success:", res.data);
-//         setUserData(res.data.data);
-//       } catch (error) {
-//         console.error("❌ API Error:", error?.response?.data || error.message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     console.log("📦 userId from params:", userId);
-//     fetchUserDetails();
-//   }, [userId]);
-
-//   if (loading) return <div className="p-6 text-lg font-medium">Loading user details...</div>;
-//   if (!userData) return <div className="p-6 text-red-500">Failed to load user data.</div>;
-
-//   const { basicInfo, profile, preference, likedBy, matches, totalLikes, totalMatches } = userData;
-
-//   return (
-//     <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg space-y-6">
-//       <h1 className="text-2xl font-bold text-pink-600">User Full Details</h1>
-
-//       {/* Basic Info */}
-//       <section>
-//         <h2 className="text-xl font-semibold">Basic Info</h2>
-//         <p><strong>Name:</strong> {basicInfo.name}</p>
-//         <p><strong>Email:</strong> {basicInfo.email}</p>
-//         <p><strong>Suspended:</strong> {basicInfo.isSuspended ? 'Yes' : 'No'}</p>
-//         <p><strong>Premium:</strong> {basicInfo.isPremium ? 'Yes' : 'No'}</p>
-//       </section>
-
-//       {/* Profile Info */}
-//       <section>
-//         <h2 className="text-xl font-semibold">Profile</h2>
-//         <p><strong>Bio:</strong> {profile.bio}</p>
-//         <p><strong>Gender:</strong> {profile.gender}</p>
-//         <p><strong>Age:</strong> {profile.age}</p>
-//         <p><strong>Birthday:</strong> {new Date(profile.birthday).toLocaleDateString()}</p>
-//         <p><strong>Interests:</strong> {profile.interests.join(', ')}</p>
-//         {profile.profileImages.length > 0 && (
-//           <img
-//   src={`http://127.0.0.1:4000/uploads/profile/${profile.profileImages[0]}`}
-//   alt="Profile"
-//   className="w-32 h-32 rounded-full border mt-2"
-// />
-
-//         )}
-//         <p><strong>Location:</strong> Lat: {profile.location.coordinates[1]}, Lng: {profile.location.coordinates[0]}</p>
-//       </section>
-
-//       {/* Preferences */}
-//       <section>
-//         <h2 className="text-xl font-semibold">Preference</h2>
-//         <p><strong>Interested in:</strong> {preference.gender}</p>
-//         <p><strong>Age Range:</strong> {preference.ageRange.min} - {preference.ageRange.max}</p>
-//         <p><strong>Distance:</strong> {preference.distance} km</p>
-//       </section>
-
-//       {/* Likes */}
-//       <section>
-//         <h2 className="text-xl font-semibold">Likes</h2>
-//         <p><strong>Total Likes:</strong> {totalLikes}</p>
-//         <ul className="list-disc pl-5">
-//           {likedBy.map((user, index) => (
-//             <li key={index}>
-//               {user.name} ({user.email}) — {new Date(user.at).toLocaleString()}
-//             </li>
-//           ))}
-//         </ul>
-//       </section>
-
-//       {/* Matches */}
-//       <section>
-//         <h2 className="text-xl font-semibold">Matches</h2>
-//         <p><strong>Total Matches:</strong> {totalMatches}</p>
-//         <ul className="list-disc pl-5">
-//           {matches.map((match, index) => (
-//             <li key={index}>
-//               {match.matchWith} ({match.email}) — {new Date(match.createdAt).toLocaleString()}
-//             </li>
-//           ))}
-//         </ul>
-//       </section>
-//     </div>
-//   );
-// }
-
-// export default UserAllDetails;
-
 
 
 
@@ -200,7 +87,7 @@ function UserAllDetails() {
                   <div className="w-32 h-32 rounded-full ring ring-pink-200 ring-offset-2">
                     {profile.profileImages.length > 0 ? (
                       <img 
-                        src={`http://127.0.0.1:4000/uploads/profile/${profile.profileImages[0]}`}
+                        src={`${BaseUrl}uploads/profile/${profile.profileImages[0]}`}
                         alt="Profile"
                         className="rounded-full object-cover"
                       />

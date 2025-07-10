@@ -1,4 +1,4 @@
-//import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,23 +10,11 @@ function Navbar() {
     setIsDark(currentTheme === "dark");
   }, []);
 
-  const toggleTheme = () => {
-    const html = document.querySelector("html");
-    const currentTheme = html.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    html.setAttribute("data-theme", newTheme);
-    setIsDark(newTheme === "dark");
-  };
+
 
   return (
     <div className="navbar bg-gradient-to-r from-pink-400 via-red-400 to-yellow-400 text-white shadow-xl px-6 py-3">
-      {/* App Title */}
-      {/* <div className="flex-1">
-        <a className="text-2xl font-bold tracking-wider hover:text-primary transition-colors duration-300">
-          LoveConnect
 
-        </a>
-      </div> */}
 
      <div className="flex-1">
   <a
@@ -65,18 +53,7 @@ function Navbar() {
         </button>
         </Link>
 
-        {/* Theme Toggle Button */}
-        {/* <button
-          className="btn btn-circle btn-ghost tooltip tooltip-bottom"
-          data-tip={isDark ? "Light Mode" : "Dark Mode"}
-          onClick={toggleTheme}
-        >
-          {isDark ? (
-            <SunIcon className="h-6 w-6 text-yellow-400" />
-          ) : (
-            <MoonIcon className="h-6 w-6" />
-          )}
-        </button> */}
+   
       </div>
     </div>
   );

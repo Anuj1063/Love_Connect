@@ -1,7 +1,8 @@
-"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import {
   Mail,
@@ -13,6 +14,7 @@ import {
   Heart,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import BaseUrl from "../utils/basUrl";
 
 function ForgotPassword() {
   const {
@@ -23,6 +25,7 @@ function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -30,13 +33,16 @@ function ForgotPassword() {
       setMessage("");
       setIsSuccess(false);
       const res = await axios.post(
-        "http://127.0.0.1:4000/auth/forgot-password",
+        `${BaseUrl}auth/forgot-password`,
         {
           email: data.email,
         }
       );
       setMessage(res.data.message || "Reset link sent to your email.");
       setIsSuccess(true);
+          setTimeout(() => {
+      navigate("/login");
+    }, 2000);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong.");
       setIsSuccess(false);
