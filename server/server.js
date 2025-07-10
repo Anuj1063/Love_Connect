@@ -43,6 +43,7 @@ app.use(
         imgSrc: [
           "'self'",
           "data:",
+          "blob:",
           "https://images.unsplash.com",
           "https://plus.unsplash.com",
         ],
